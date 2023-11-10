@@ -1,24 +1,66 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import About from './componentes/about';
+import Navbar from './componentes/Navbar';
+import Inicio from './componentes/inicio';
+import Portaforio from './componentes/portfolio';
+import Hero from './componentes/Hero';
+import Login from './componentes/login';
+import Menuadmi from './componentes/menuadmi'; 
+import { useState, useEffect } from 'react';
+import Salirmuseo from './componentes/salirmuseo';
+import Logout from './componentes/logout';
+import MainAdmin from './componentes/mainadmi';
+import EntradasUsu from './componentes/entradasusu';
 
-function App() {
+function App(){
+  const [autenticado, setAutenticado] = useState(false);
+  const [rol, setRol] = useState("Usuario");
+
+  useEffect(() => {
+    const usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuarioAdmin = usuariosRegistrados.find(usuario => usuario.username === "admin");
+  
+    if (!usuarioAdmin) {
+      const nuevoUsuarioAdmin = { username: "admin", password: "1004", autenticado: false, rol: "Administrador" };
+      const nuevosUsuarios = [...usuariosRegistrados, nuevoUsuarioAdmin];
+      localStorage.setItem("usuarios", JSON.stringify(nuevosUsuarios));
+    }
+  
+    const usuarioAutenticado = usuariosRegistrados.find(usuario => usuario.autenticado===true);
+    if (usuarioAutenticado) {
+      setAutenticado(true);
+      setRol(usuarioAutenticado.rol);
+    }
+  }, []);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      {autenticado ? (
+        <>
+          {rol === "Usuario" ? ( 
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Hero />} exact />
+                <Route path="/portfolio" element={<Portaforio />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/salirmuseo" element={<Salirmuseo />} />
+                <Route path="/logout" element={<Logout setAutenticado={setAutenticado} setRolUsuario={setRol} />}/> 
+
+              </Routes>
+            </>
+          ) : (
+            <Routes>
+                <Route path="/" element={<MainAdmin />} exact />
+                <Route path="/entradasusu" element={<EntradasUsu />} />
+           </Routes>
+          )}
+        </>
+      ) : (
+       <Login setAutenticado={setAutenticado} rolUusuario={setRol} />
+      )}
+    </main>
   );
 }
 

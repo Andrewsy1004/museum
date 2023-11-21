@@ -49,6 +49,7 @@ function ComprarTicket() {
       numeroTarjeta,
       codigo: Math.floor(Math.random() * 10000),
       cantidad: cantidadTickets,
+      total: totalPagar,
     };
     ticketsComprados.push(nuevoTicket);
 

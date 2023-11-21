@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
-function EntradasUsu() {
-  const [canjeosOriginales, setCanjeosOriginales] = useState([]);
-  const [canjeosFiltrados, setCanjeosFiltrados] = useState([]);
+function SalidadUsu() {
+  const [canjeos, setCanjeos] = useState(JSON.parse(localStorage.getItem("salidas")) || []);
   const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
-    const canjeos = JSON.parse(localStorage.getItem("salidas")) || [];
-    setCanjeosOriginales(canjeos);
-    setCanjeosFiltrados(canjeos);
-  }, []);
-
-  useEffect(() => {
     if (busqueda.trim() === "") {
-      setCanjeosFiltrados(canjeosOriginales);
+      setCanjeos(JSON.parse(localStorage.getItem("salidas")) || []);
       return;
     }
 
-    const resultados = canjeosOriginales.filter(canjeo =>
+    const resultados = canjeos.filter(canjeo =>
       canjeo.nombreUsuario.toLowerCase().includes(busqueda.toLowerCase())
     );
 
-    setCanjeosFiltrados(resultados);
-  }, [busqueda, canjeosOriginales]);
+    setCanjeos(resultados);
+  }, [busqueda]);
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Lista de Salidas</h1>
+      <h1 className="text-2xl font-bold mb-4">Lista de salidas</h1>
       <input
         type="text"
         placeholder="Buscar por nombre de usuario"
@@ -35,10 +28,10 @@ function EntradasUsu() {
         className="w-full px-4 py-2 border rounded shadow focus:outline-none mb-4"
       />
       <ul>
-        {canjeosFiltrados.map((canjeo, index) => (
+        {canjeos.map((canjeo, index) => (
           <li key={index} className="mb-2 bg-gray-100 p-4 rounded-lg">
             <strong className="text-blue-500">Nombre de Usuario:</strong> {canjeo.nombreUsuario},{' '}
-            <strong className="text-blue-500">Hora de Salida:</strong> {canjeo.horaSalida}
+            <strong className="text-blue-500">Fecha de Canjeo:</strong> {canjeo.horaCanje}
           </li>
         ))}
       </ul>
@@ -46,4 +39,4 @@ function EntradasUsu() {
   );
 }
 
-export default EntradasUsu;
+export default SalidadUsu;

@@ -6,7 +6,7 @@ import p4 from "../img/p4.png"
 
 const CarouselItem = ({ id, imgSrc, prevSlide, nextSlide }) => (
   <div id={id} className="carousel-item relative w-full">
-    <img src={imgSrc} className="w-full" style={{ width: '100%', maxHeight: '700px' }} /> {/* Cambio aquí */}
+    <img src={imgSrc} className="w-full" style={{ width: '100%', maxHeight: '500px' }} /> {/* Cambio aquí */}
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href={prevSlide} className="btn btn-circle">❮</a> 
       <a href={nextSlide} className="btn btn-circle">❯</a>
@@ -19,13 +19,13 @@ const Hero = () => {
   const slides = [
     {
       id: "slide1",
-      imgSrc: p2,
+      imgSrc: p1,
       prevSlide: "#slide4",
       nextSlide: "#slide2"
     },
     {
       id: "slide2",
-      imgSrc: p1,
+      imgSrc: p2,
       prevSlide: "#slide1",
       nextSlide: "#slide3"
     },

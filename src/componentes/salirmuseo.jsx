@@ -21,36 +21,37 @@ function Portafolio() {
     const ticketIndex = tickets.findIndex(
       (ticket) => ticket.codigo === parseInt(codigoTicket) 
     );
-    const ticketName = canjeos.findIndex(
-      (ticketN) => ticketN.nombreUsuario === nombreUsuario
-    );
-
-    if (ticketIndex !== -1 && ticketName !== -1) {
+     
+    const nombreUs = canjeos.find(
+      (canjeo) => canjeo.nombreUsuario === nombreUsuario
+    )
+     
+    
+    if (ticketIndex !== -1 && nombreUs!==-1) {
       const ticketCanjeado = tickets[ticketIndex];
+
       ticketCanjeado.horaSalida = new Date().toLocaleString();
       ticketCanjeado.nombreUsuario = nombreUsuario;
-      ticketCanjeado.cantidad -= 1;
 
       tickets[ticketIndex] = ticketCanjeado;
       localStorage.setItem("tickets", JSON.stringify(tickets));
 
-      const nuevoCanjeo = {
+      const nuevaSalida = {
         codigo: ticketCanjeado.codigo,
         nombreUsuario: nombreUsuario,
         horaSalida: ticketCanjeado.horaSalida,
       };
 
-      canjeos.push(nuevoCanjeo);
-      localStorage.setItem("canjeos", JSON.stringify(canjeos));
+      salidas.push(nuevaSalida);
+      localStorage.setItem("salidas", JSON.stringify(salidas));
 
-      setCodigoTicket("");
-      setNombreUsuario("");
       setTicketCanjeado(true);
     } else {
-      setCodigoTicket("");
-      setNombreUsuario("");
       alert("Código de ticket inválido o ya canjeado. Por favor, verifica el código e intenta de nuevo.");
     }
+
+    setCodigoTicket("");
+    setNombreUsuario("");
   };
 
   return (

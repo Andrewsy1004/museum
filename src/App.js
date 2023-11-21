@@ -12,6 +12,8 @@ import Salirmuseo from './componentes/salirmuseo';
 import Logout from './componentes/logout';
 import MainAdmin from './componentes/mainadmi';
 import EntradasUsu from './componentes/entradasusu';
+import SalidadUsu from './componentes/entradasusu';
+import { Estadisticas } from './componentes/estadisticas';
 
 function App(){
   const [autenticado, setAutenticado] = useState(false);
@@ -54,6 +56,9 @@ function App(){
             <Routes>
                 <Route path="/" element={<MainAdmin />} exact />
                 <Route path="/entradasusu" element={<EntradasUsu />} />
+                <Route path="/usuarios" element={<SalidadUsu />} />
+                <Route path="/estadisticas" element={<Estadisticas />} />
+                <Route path="/salirmuseo" element={<Logout setAutenticado={setAutenticado} setRolUsuario={setRol} />}/>
            </Routes>
           )}
         </>

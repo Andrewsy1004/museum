@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import imagen from "../img/imagen.png";
+import muse from "../img/muse.png";
 const Login = ({ setAutenticado,rolUusuario }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +59,7 @@ const Login = ({ setAutenticado,rolUusuario }) => {
       <div className="bg-white p-8 rounded-lg shadow-lg flex">
         <div className="w-1/2">
           <img
-            src={imagen}
+            src={muse}
             alt="Imagen"
             className="w-full h-full object-cover"
           />

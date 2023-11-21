@@ -2,8 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function MainAdmin() {
-  const navigate = useNavigate();
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center">
